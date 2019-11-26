@@ -17,6 +17,7 @@ var p4 = Point()
 struct TestPoint {
     var x: Int = 0
     var y: Int = 0
+    var z: Bool = true
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
@@ -29,9 +30,9 @@ var testP1 = TestPoint(x: 10, y: 10)
 //var p4 = TestPoint()
 
 //: 结构体内部结构
-print(MemoryLayout<TestPoint>.size)
-print(MemoryLayout<TestPoint>.stride)
-print(MemoryLayout<TestPoint>.alignment)
+print(MemoryLayout<TestPoint>.size)         // 具体占用的内存大小
+print(MemoryLayout<TestPoint>.stride)       // 系统分配的默认大小
+print(MemoryLayout<TestPoint>.alignment)    // 对齐
 
 //:类
 ///类的定义和结构体类似，但编译器并没有为类自动生成可以传入成员的初始化器
@@ -68,7 +69,6 @@ print(String(format: "%p", s2))
 /// 比如仅当有"写"操作时，才会真正进行拷贝操作
 /// 对于标准库值类型的赋值操作，Swift能够确保最佳性能，所以没必要为了保证最佳性能来避免赋值
 /// 建议：不需要修改的，尽量定义为let
-
 //: 引用类型
 /// 引用赋值给var、let或者给函数传参，是将内存地址拷贝一份
 /// 类似于制作一个文件的替身（快捷方式、链接），指向的是同一个文件。属于浅拷贝（shallow copy）
@@ -88,7 +88,6 @@ func test() {
     s2.height = 22
     /// 请问s1.width和s1的height是多少？
 }
-
 //: 值类型、引用类型的let
 struct TestPoint1 {
     var x: Int

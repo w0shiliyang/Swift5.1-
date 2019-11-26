@@ -101,12 +101,13 @@ func getFn() -> Fn {
 
 var fn1 = getFn()
 var fn2 = getFn()
-fn1(1)
-fn2(2)
-fn1(3)
-fn2(4)
-fn1(5)
-fn2(6)
+fn1(1)  //  1
+fn1(3)  //  4
+fn1(5)  //  9
+
+fn2(2)  //  2
+fn2(4)  //  6
+fn2(6)  //  12
 
 /// 思考： 如果num是全局变量呢？
 
@@ -130,7 +131,6 @@ cs1.plus(3)
 cs2.plus(4)
 cs1.plus(5)
 cs2.plus(6)
-
 //: 自动闭包
 func getFirstPositive(_ v1: Int, _ v2: Int) -> Int {
     return v1 > 0 ? v1 : v2
@@ -158,5 +158,4 @@ getFirstPositive(-4) { 20 }
 /// 有@auto closure、 无@autoclosure，构成了函数重载
 
 ///为了避免与期望冲突，使用了@autoclosure的地方最好明确注视清楚：这个值会被推迟执行
-
 //: [属性](@next)

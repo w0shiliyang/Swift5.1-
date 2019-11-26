@@ -61,7 +61,6 @@ enum TestEnum : Int {
     }
 }
 print(TestEnum.test3.rawValue)
-
 //: 延迟存储属性
 /// 使用lazy可以定义一个延迟存储属性，在第一次用到属性的时候才会进行初始化
 class Car {
@@ -152,10 +151,11 @@ struct Shape {
     }
     var girth: Int {
         set {
+            print("set girth")
             width = newValue / side
         }
         get {
-            print("getGirth")
+            print("get girth")
             return width * side
         }
     }
