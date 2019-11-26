@@ -118,7 +118,6 @@ circle.diameter = 12
 // SubCircle getRaius
 // 10
 print(circle.radius)
-
 //: 重写类型属性
 /// 被class修饰的计算类型属性，可以被子类重写
 /// 被static修饰的类型属性（存储、计算），不可以被子类重写
@@ -227,6 +226,7 @@ class Circle3 {
         }
     }
 }
+
 class SubCircle3: Circle3 {
     override var radius: Int {
         willSet {

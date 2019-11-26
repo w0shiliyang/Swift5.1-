@@ -23,7 +23,7 @@ struct TestPoint {
     }
 }
 
-//var testP1 = TestPoint(x: 10, y: 10)
+var testP1 = TestPoint(x: 10, y: 10)
 //var p2 = TestPoint(y: 10)
 //var p3 = TestPoint(x: 10)
 //var p4 = TestPoint()
@@ -44,7 +44,6 @@ class PointClass {
 //let pc1 = PointClass(x: 10, y: 20)
 //let pc1 = PointClass(x: 10)
 //let pc1 = PointClass(y: 20)
-
 //:类的初始化器
 ///如果类的所有成员都在定义的时候指定了初始值，编译器会为类生成无参的初始化器
 ///成员的初始化是在这个初始化器中完成的
@@ -113,7 +112,7 @@ class TestSize1 {
 //let ts1 = TestSize1(width: 10, height: 20)
 //ts1 = TestSize1(width: 11, height: 22)
 //ts1.width = 33
-//ts2.height = 44
+//ts1.height = 44
 
 //:嵌套类型
 struct Poker {

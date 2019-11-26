@@ -82,22 +82,22 @@ nums.sort { $0 < $1}
 
 typealias Fn = (Int) -> Int
 
-//func getFn() -> Fn {
-//    var num = 0
-//    func plus(_ i: Int) -> Int {
-//        num += i
-//        return num
-//    }
-//    return plus
-//}/// 返回的plus和num形成了闭包
-
 func getFn() -> Fn {
     var num = 0
-    return {
-        num += $0
+    func plus(_ i: Int) -> Int {
+        num += i
         return num
     }
-}
+    return plus
+}/// 返回的plus和num形成了闭包
+
+//func getFn() -> Fn {
+//    var num = 0
+//    return {
+//        num += $0
+//        return num
+//    }
+//}
 
 var fn1 = getFn()
 var fn2 = getFn()

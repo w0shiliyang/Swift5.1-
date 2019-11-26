@@ -96,13 +96,13 @@ class Sum {
 }
 print(Sum[10, 20]) // 30
 
-//: 结构体、类作为返回值对比(没啥区别)
+//: 结构体、类作为返回值对比
 class Point4 {
     var x = 0, y = 0
 }
 class PointManager {
-    var point = Point()
-    subscript(index: Int) -> Point {
+    var point = Point4()
+    subscript(index: Int) -> Point4 {
         get { point }
     }
 }
@@ -111,9 +111,9 @@ var pm = PointManager()
 pm[0].x = 11
 pm[0].y = 22
 // Point(x: 11, y: 22)
-print(pm[0])
+print(pm[0].x)
 // Point(x: 11, y: 22)
-print(pm.point)
+print(pm.point.x)
 
 struct Point5 {
     var x = 0, y = 0
@@ -123,8 +123,8 @@ struct Point5 {
 }
 
 class PointManager2 {
-    var point = Point()
-    subscript(index: Int) -> Point {
+    var point = Point5()
+    subscript(index: Int) -> Point5 {
         set { point = newValue }
         get { point }
     }
