@@ -52,3 +52,5 @@ var dict: [String : (Int, Int) -> Int] = [
     "difference" : (-)
 ]
 var result = dict["sum"]?(10, 20) // Optional(30), Int?
+
+//: [协议](@next)

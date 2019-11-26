@@ -117,6 +117,9 @@ print(pm.point)
 
 struct Point5 {
     var x = 0, y = 0
+    subscript(index: Int) -> Int {
+        return index
+    }
 }
 
 class PointManager2 {
