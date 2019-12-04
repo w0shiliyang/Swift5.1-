@@ -128,10 +128,9 @@ class Teacher: Livable {
 //    required init(age: Int) {}
     
     required init!(no: Int) {}
-//    required init?(age: Int) {}
-//    required init(age: Int) {}
+//    required init?(no: Int) {}
+//    required init(no: Int) {}
 }
-
 //: 协议的继承
 /// 一个协议可以继承其他协议
 protocol Runable {
@@ -146,7 +145,6 @@ class Person5 : Livable1 {
     func breath() {}
     func run() {}
 }
-
 //: 协议组合
 /// 协议组合，可以包含1个类类型（最多1个）
 protocol LivableTest {}
@@ -257,13 +255,13 @@ perType = StudentTest3.self
 var anyType: AnyObject.Type = PersonTest3.self
 anyType = StudentTest3.self
 
-public typealias AnyClass = AnyObject.Type
+//public typealias AnyClass = AnyObject.Type
 var anyType2: AnyClass = PersonTest3.self
 anyType2 = StudentTest3.self
 
 var per = PersonTest3()
 perType = type(of: per)
-print(PersonTest3.self == type(of: per))
+print(PersonTest3.self == perType)
 
 //: 元类型的应用
 class Animal { required init() {} }
@@ -312,3 +310,5 @@ print(p.test())
 var stuTest = StudentTest5()
 // Student
 print(stuTest.test())
+
+//: [错误处理](@next)
