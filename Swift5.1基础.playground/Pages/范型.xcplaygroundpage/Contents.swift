@@ -52,7 +52,7 @@ let score2 = Score.point(99.5)
 let score3 = Score<Int>.grade("A")
 
 //: 关联类型（Associated Type）
-/// 关联类型的作用： 给协议中用到的类型定义一一个占位名称
+/// 关联类型的作用： 给协议中用到的类型定义一个占位名称
 /// 协议中可以拥有多个关联类型
 
 protocol Stackable {
@@ -130,6 +130,14 @@ class Car2 : Runnable2 {
     var speed: Int { 0 }
 }
 
+//func get2(_ type: Int) -> Runnable2 {
+//    if type == 0 {
+//        return Person2()
+//    }
+//    return Car2()
+//}
+//var testR1 = get2(0)
+//var testR2 = get2(0)
 //: 泛型解决
 /// 解决方案1: 使用泛型
 func get<T: Runnable2>(_ type: Int) -> T {
@@ -167,7 +175,6 @@ class People {
 
 //: 可选项的本质
 /// 可选项的本质是enum类型
-
 //public enum Optional<Wrapped> : ExpressibleByNilLiteral {
 //    case none
 //    case some(Wrapped)
