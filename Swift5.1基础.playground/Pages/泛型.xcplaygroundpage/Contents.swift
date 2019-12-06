@@ -1,7 +1,7 @@
 import Foundation
 
-//: 范型（Generics）
-/// 范型可以将类型参数化，提高代码复用率，减少代码量
+//: 泛型（Generics）
+/// 泛型可以将类型参数化，提高代码复用率，减少代码量
 func swapValues<T>(_ a: inout T, _ b: inout T) {
     (a, b) = (b, a)
 }
@@ -20,7 +20,7 @@ var dd1 = Date(year: 2011, month: 9, day: 10)
 var dd2 = Date(year: 2012, month: 10, day: 11)
 swapValues(&dd1, &dd2)
 
-/// 范型函数赋值给变量
+/// 泛型函数赋值给变量
 func test<T1, T2>(_ t1: T1, _ t2: T2) {}
 var fn: (Int, Double) -> () = test
 
@@ -224,3 +224,5 @@ ageValue2 = .none
 
 var ageValue3: Int?? = 10
 var ageValue4: Optional<Optional> = 10
+
+//: [高级运算符](@next)
