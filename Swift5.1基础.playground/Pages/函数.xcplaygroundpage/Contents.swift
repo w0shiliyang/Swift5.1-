@@ -1,5 +1,4 @@
 import UIKit
-
 //: 函数的定义
 func sum(v1: Int, v2: Int) -> Int {
     return v1 + v2
@@ -132,7 +131,8 @@ func testSum3(_ numbers: Int...) -> Int {
 //testSum3(1,2,3,4)
 //testSum3(1, 2)
 
-//:函数类型 每个函数都有类型，由形式参数类型、返回值类型组成
+//:函数类型
+//每个函数都有类型的，由形式参数类型、返回值类型组成
 //返回值是函数类型的函数，叫做高阶函数
 
 func next(_ input: Int) -> Int { input + 1}

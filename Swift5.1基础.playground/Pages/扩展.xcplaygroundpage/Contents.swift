@@ -9,7 +9,6 @@ import Foundation
 /// 不能添加存储属性，不能向已有的属性添加属性观察器
 /// 不能添加父类
 /// 不能添加指定初始化器，不能添加反初始化器
-
 //: 计算属性、下标、方法、嵌套类型
 extension Double {
     var km: Double { self * 1_000.0}
@@ -175,3 +174,5 @@ extension Stack: Equatable where E : Equatable {
         left.elements == right.elements
     }
 }
+
+//: [访问控制](@next)
