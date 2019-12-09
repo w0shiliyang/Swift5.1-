@@ -10,6 +10,7 @@ import Foundation
 /// 绝大部分实体默认都是internal级别
 //:访问级别的使用准则
 /// 一个实体不可以被更低访问级别的实体定义，比如
+
 /// 变量\常量类型 >= 变量\常量
 /// 参数类型、返回值类型 >= 函数
 /// 父类 >= 子类
@@ -26,7 +27,6 @@ fileprivate class Person {}
 // (Dog, Person)的访问级别是fileprivate
 fileprivate var data1 : (Dog, Person)
 private var data2 : (Dog, Person)
-
 //: 泛型类型
 /// 泛型类型的访问级别是类型的访问级别以及所有泛型类型参数的访问级别中最低的那个
 
@@ -36,7 +36,6 @@ public class Person1<T1, T2> {}
 
 // Person1<Car, Dog1>的访问级别是fileprivate
 fileprivate var p = Person1<Car, Dog1>()
-
 //: 成员、嵌套类型
 /// 类型的访问级别会影响成员（属性、方法、初始化器、下标）、嵌套类型的默认访问级别
 /// 一般情况下，类型为private或fileprivate，那么成员\嵌套类型默认也是private或fileprivate
@@ -60,22 +59,21 @@ fileprivate class FilePrivateClass { // fileprivate
     private func f2() {}    //private
 }
 
-private class PrivateClass {    // private
-    func f() {} //private
+private class PrivateClass {    // fileprivate/private
+    func f() {} //fileprivate/private
 }
-
 //: 成员的重写
 /// 子类重写成员的访问级别必须 >= 子类的访问级别，或者 >= 父类被重写成员的访问级别
 /// 父类的成员不能被成员作用域外定义的子类重写
 public class Person2 {
-    private var age: Int = 0
+    fileprivate var age: Int = 0
 }
 
 public class Student : Person2 {
-//    override var age: Int {
-//        set {}
-//        get {10}
-//    }
+    override open var age: Int {
+        set {}
+        get {10}
+    }
 }
 
 public class Person3 {
@@ -87,7 +85,6 @@ public class Person3 {
         }
     }
 }
-
 //:下面代码能否编译通过？
 private class Person4 {}
 fileprivate class Student4 : Person4 {}
@@ -99,19 +96,6 @@ private struct Dog5 {
 
 fileprivate struct Person5 {
     var dog: Dog5 = Dog5()
-    mutating func walk() {
-        dog.run()
-        dog.age = 1
-    }
-}
-
-private struct Dog6 {
-    var age: Int = 0
-    func run() {}
-}
-
-fileprivate struct Person6 {
-    var dog: Dog6 = Dog6()
     mutating func walk() {
         dog.run()
         dog.age = 1
@@ -142,36 +126,37 @@ class Person7 {
 /// 因为public类的默认初始化器是internal级别
 
 /// required初始化器 >= 它的默认访问级别
-
-/// 如果结构体有private\fileprivate的存储实例属性，那么它的成员初始化器也是private\fileprivate
-/// 否则默认就是internal
-
 //:枚举类型的case
 /// 不能给enum的每个case单独设置访问级别
 /// 每个case自动接收enum的访问级别
 /// public enum定义的case也是public
-
 //: 协议
 /// 协议中定义的要求自动接收协议的访问级别，不能单独设置访问级别
 /// public协议定义的要求也是public
 /// 协议实现的访问级别必须>=类型的访问级别，或者>=协议的访问级别
 /// 下面代码能编译通过么？
+
+/*
 public protocol Runnable {
     func run()
 }
 
 public class TestPerson1 : Runnable {
-    public func run() {}
+    func run() {}
 }
-
+ */
 //: 扩展
 /// 如果有显式设置扩展的访问级别，扩展添加的成员自动接收扩展的访问级别
 /// 如果没有显式设置扩展的访问级别，扩展添加的成员的默认访问级别，跟直接在类型中定义的成员一样
+
 /// 可以单独给扩展添加的成员设置访问级别
+
 /// 不能给用于遵守协议的扩展显示设置扩展的访问级别
+
 /// 在同一文件中的扩展，可以写成类似多个部分的类型声明
 /// 在原本的声明中声明一个私有成员，可以在同一文件的扩展中访问它
 /// 在扩展中声明一个私有成员，可以在同一文件的其他扩展中、原本声明中访问它
+
 public class TestPerson2 {
     private func run0() {}
     private func eat0() {
