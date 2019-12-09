@@ -17,7 +17,6 @@ import Foundation
 /// 父协议 >= 子协议
 /// 原类型 >= typealias
 /// 原始类型、关联值类型 >= 枚举类型
-/// 定义类型A时用到的其他类型 >= 类型A
 //:元组类型
 /// 元组类型的访问级别是所有成员类型最低的那个
 
@@ -134,6 +133,7 @@ class Person7 {
 /// 协议中定义的要求自动接收协议的访问级别，不能单独设置访问级别
 /// public协议定义的要求也是public
 /// 协议实现的访问级别必须>=类型的访问级别，或者>=协议的访问级别
+
 /// 下面代码能编译通过么？
 
 /*
@@ -176,8 +176,7 @@ extension TestPerson2 {
         run1()
     }
 }
-
-//: 将方法赋值给var\let
+//: 将方法赋值给var\let(其他补充)
 /// 方法也可以像函数那样，赋值给一个let或者var
 struct TestPerson3 {
     var age: Int
@@ -194,3 +193,4 @@ fn2(20) // static func run 20
 
 let fn3: (TestPerson3) -> ((Int) -> ()) = TestPerson3.run
 fn3(TestPerson3(age: 18))(30)   // func run 18 30
+//: [内存管理](@next)
