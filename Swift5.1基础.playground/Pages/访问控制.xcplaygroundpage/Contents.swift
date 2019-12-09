@@ -136,11 +136,13 @@ class Person7 {
         get { index }
     }
 }
-
+ 
 //: 初始化器
 /// 如果一个public类想在另一个模块调用编译生成的默认无参初始化器，必须显式提供public的无参初始化器
 /// 因为public类的默认初始化器是internal级别
+
 /// required初始化器 >= 它的默认访问级别
+
 /// 如果结构体有private\fileprivate的存储实例属性，那么它的成员初始化器也是private\fileprivate
 /// 否则默认就是internal
 
