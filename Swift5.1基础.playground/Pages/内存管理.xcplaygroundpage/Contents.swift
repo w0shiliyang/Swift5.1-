@@ -39,7 +39,7 @@ autoreleasepool {
 /// 初始化赋值后再也不会变为nil的使用unowned
 //: 闭包的循环引用
 /// 闭包表达式默认会对用到的外层对象产生额外的强引用（对外层对象进行了retain操作）
-/// 下面代码会产生循环引用，导致Person对象无法释放（看不到Person1的deninit被调用）
+/// 下面代码会产生循环引用，导致Person1对象无法释放（看不到Person1的deninit被调用）
 class Person1 {
     var fn: (() -> ())?
     func run(){ print("run") }
@@ -131,16 +131,17 @@ class Person4 {
 func other1(_ fn: Fn) { fn() }
 func other2(_ fn: @escaping Fn) { fn() }
 
-//func test(value: inout Int) -> Fn {
-//    other1 { value += 1 }
-    // error: 逃逸闭包不能捕获inout参数
-//    other2 { value += 1 }
+/*
+func test(value: inout Int) -> Fn {
+    other1 { value += 1 }
+//     error: 逃逸闭包不能捕获inout参数
+    other2 { value += 1 }
     
-//    func plus() { value += 1 }
-    // error: 逃逸闭包不能捕获inout参数
-//    return plus
-//}
-
+    func plus() { value += 1 }
+//     error: 逃逸闭包不能捕获inout参数
+    return plus
+}
+*/
 //: 内存访问冲突（Conflicating Access to Memory）
 /// 内存访问冲突会在两个访问满足下列条件时发生：
 /// 至少一个是写入操作
@@ -189,16 +190,16 @@ oscar.shareHealth(with: &maria) // OK
 
 var tuple = (health: 10, energy: 20)
 // Error
-//balance(&tuple.health, &tuple.enery)
+//balance(&tuple.health, &tuple.energy)
 
 var holly = Player(name: "Holly", health: 10, energy: 10)
 //Error
-//balance(&holly.health, &holly.eneray)
+//balance(&holly.health, &holly.energy)
 
 /// 如果下面的条件可以满足，就说明重叠访问结构体的属性是安全的
 /// 你只访问实例存储属性，不是计算属性或者类属性
 /// 结构体是局部变量而非全局变量
-/// 结构体要么没有被闭包捕获要饿只被非逃逸闭包捕获
+/// 结构体要么没有被闭包捕获要么只被非逃逸闭包捕获
 
 // Ok
 func test1() {
@@ -353,3 +354,5 @@ var person7 = Person7()
 var ptrr7 = unsafeBitCast(person7, to: UnsafeRawPointer.self)
 print(ptrr7)
 */
+
+//: [字面量](@next)
