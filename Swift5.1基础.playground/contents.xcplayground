@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='playground'/>
         <page name='流程控制'/>
@@ -24,6 +24,9 @@
         <page name='字面量'/>
         <page name='模式匹配'/>
         <page name='从OC到Swift'/>
+        <page name='函数式编程'/>
+        <page name='面向协议编程'/>
+        <page name='响应式编程'/>
         <page name='练习'/>
     </pages>
 </playground>
