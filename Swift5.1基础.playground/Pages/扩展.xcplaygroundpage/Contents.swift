@@ -120,7 +120,7 @@ extension BinaryInteger {
 }
 
 /// 扩展可以给协议提供默认实现，也间接实现【可选协议】的效果
-/// 扩展可以给协议扩充【协议中声明过的方法】
+/// 扩展可以给协议扩充【协议中从未声明过的方法】
 protocol TestProtocol1 {
     func test1()
 }

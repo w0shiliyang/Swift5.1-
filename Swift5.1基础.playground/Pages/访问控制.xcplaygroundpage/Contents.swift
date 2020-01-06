@@ -64,8 +64,10 @@ private class PrivateClass {    // fileprivate/private
 //: 成员的重写
 /// 子类重写成员的访问级别必须 >= 子类的访问级别，或者 >= 父类被重写成员的访问级别
 /// 父类的成员不能被成员作用域外定义的子类重写
+/*
+
 public class Person2 {
-    fileprivate var age: Int = 0
+    private var age: Int = 0
 }
 
 public class Student : Person2 {
@@ -74,6 +76,8 @@ public class Student : Person2 {
         get {10}
     }
 }
+ 
+*/
 
 public class Person3 {
     private var age: Int = 0
@@ -85,8 +89,8 @@ public class Person3 {
     }
 }
 //:下面代码能否编译通过？
-private class Person4 {}
-fileprivate class Student4 : Person4 {}
+//private class Person4 {}
+//fileprivate class Student4 : Person4 {}
 
 private struct Dog5 {
     var age: Int = 0

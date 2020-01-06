@@ -22,5 +22,8 @@
         <page name='访问控制'/>
         <page name='内存管理'/>
         <page name='字面量'/>
+        <page name='模式匹配'/>
+        <page name='从OC到Swift'/>
+        <page name='练习'/>
     </pages>
 </playground>

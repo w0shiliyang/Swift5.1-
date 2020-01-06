@@ -130,6 +130,8 @@ class Car2 : Runnable2 {
     var speed: Int { 0 }
 }
 
+/// 下面写法会报错么？
+
 //func get2(_ type: Int) -> Runnable2 {
 //    if type == 0 {
 //        return Person2()

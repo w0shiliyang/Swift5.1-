@@ -89,3 +89,5 @@ var p: Point = [10.5, 20.5]
 print(p) // Point(x: 10.5, y: 20.5)
 p = ["x" : 11, "y" : 22]
 print(p) // Point(x: 11.0, y: 22.0)
+
+//: [模式匹配](@next)
