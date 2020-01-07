@@ -27,17 +27,7 @@ import Foundation
 //:RxSwift的核心角色
 //Observable:负责发送事件(Event)
 //Observer:负责订阅Observable，监听Observable发送的事件(Event)
-
-public enum Event<Element> {
-/// Next element is produced.
-    case next(Element)
-    
-/// Sequence terminated with an error.
-    case error(Swift.Error)
-    
-/// Sequence completed successfully.
-    case completed
-}
+ 
 
 //Event有3种
 //next:携带具体数据
@@ -66,7 +56,7 @@ var observable = Observable<Int>.create { observer in
 observable = Observable.of(1, 2, 3)
 observable = Observable.from([1, 2, 3])
 
-
+/// 订阅
 observable.subscribe { event in
     print(event)
 }.dispose()
@@ -91,7 +81,19 @@ observable.map {
         "数值是\($0)"
         }.bind(to: label.rx.text)
         .disposed(by: bag)
-
+ 
+ /// range
+ //        Observable.range(start: 2, count: 10)
+ //            .subscribe { (event : Event<Int>) in
+ //            print(event)
+ //        }.dispose()
+         
+ /// repeatElement
+ //        Observable.repeatElement("hello")
+ //        .take(4)
+ //            .subscribe { (event) in
+ //                print(event)
+ //        }.dispose()
 //:创建Observer
 let observer = AnyObserver<Int>.init { event in
     switch event {
@@ -137,9 +139,11 @@ observable.map { $0 % 2 == 0 }
 
 //传统方案经常会出现错综复杂的依赖关系、耦合性较高，还需要编写重复的非业务代码
 //:RxSwift的状态监听1
-button.rx.tap.subscribe(onNext: {
+button.rx.tap
+ .subscribe(onNext: {
         print("按钮被点击了1")
-    }).disposed(by: bag)
+    })
+ .disposed(by: bag)
 
 let data = Observable.just(
     [Person(name: "Jack", age: 10),
@@ -184,7 +188,8 @@ textField.rx.text
         print("text is", text ?? "nil")
     }).disposed(by: bag)
 
-//诸如UISlider.rx.value、UTextField.rx.text这类属性值，既是Observable，又是Observer p 它们是RxCocoa.ControlProperty类型
+// 诸如UISlider.rx.value、UTextField.rx.text这类属性值，既是Observable，又是Observer
+// 它们是RxCocoa.ControlProperty类型
 
 //:Disposable
 // 每当Observable被订阅时，都会返回一个Disposable实例，当调用Disposable的dispose，就相当于取消订阅
@@ -203,4 +208,96 @@ observable.subscribe { event in
 let _ = observable.takeUntil(self.rx.deallocated).subscribe { event in
     print(event)
 }
-*/
+//:PublishSubject、ReplaySubject、BehaviorSubject、Variable
+/// 四种序列
+
+///1. PublishSubject, 订阅者只能接受，订阅之后发出的事件
+ 
+//let publishSub = PublishSubject<String>()
+ 
+//不会接收到
+//publishSub.onNext("coderwhy")
+//publishSub.subscribe { (event : Event<String>) in
+//    print(event)
+//}.disposed(by: bag)
+ 
+//会接收到
+//publishSub.onNext("coderwhy")
+
+///2、ReplaySubject, 订阅者可以接受订阅之前的事件&订阅之后的事件
+ 
+//let replaySub = ReplaySubject<String>.create(bufferSize: 4)
+//replaySub.onNext("a")
+//replaySub.onNext("b")
+//replaySub.onNext("c")
+//replaySub.onNext("d")
+//replaySub.onNext("e")
+//
+//replaySub.subscribe { (event) in
+//    print(event)
+//}.disposed(by: bag)
+//replaySub.onNext("f")
+
+//3、BehaviorSubject, 订阅者可以接受，订阅之前的最后一个事件
+ 
+//let behaviorSub = BehaviorSubject(value: "a")
+//behaviorSub.onNext("b")
+//behaviorSub.onNext("c")
+//behaviorSub.onNext("d")
+//
+//behaviorSub.subscribe { (event : Event<String>) in
+//    print(event)
+//}.disposed(by: bag)
+//
+//behaviorSub.onNext("e")
+//behaviorSub.onNext("f")
+//behaviorSub.onNext("g")
+
+///4、Variable,
+///1、相当于对BehaviorSubject进行装箱
+///2、如果想将Variable当成Observable，让订阅者进行订阅时，需要asObservable转成Observable
+///3、如果Variable打算发出事件，直接修改对象的value即可
+///4、当事件结束时，Variable会自动发出completed事件
+
+//let variable = Variable("a")
+//variable.value = "1"
+//variable.asObservable().subscribe { (event : Event<String>) in
+//    print(event)
+//}.disposed(by: bag)
+//variable.value = "2"
+
+ //: map flatMap使用
+
+///    map
+ Observable.of(1,2,3,4).map { (value) -> Int in
+     return value * value
+ }
+ .subscribe { (event : Event<Int>) in
+     print(event)
+ }
+ .disposed(by: bag)
+
+/// flatMap使用
+ 
+ struct Student {
+     var score : Variable<Double>
+ }
+ 
+ let stu1 = Student(score: Variable(80))
+ let stu2 = Student(score: Variable(100))
+ 
+ let studentVariable = Variable(stu1)
+ studentVariable.asObservable()
+     .flatMapLatest({ (stu : Student) -> Observable<Double> in
+         return stu.score.asObservable()
+     })
+//   .flatMap { (stu : Student) -> Observable<Double> in
+//       return stu.score.asObservable()
+//   }
+     .subscribe { (event : Event<Double>) in
+         print(event.element as Any)
+     }.disposed(by: bag)
+ 
+ studentVariable.value = stu2
+ stu1.score.value = 1999
+ */
