@@ -27,6 +27,7 @@
         <page name='函数式编程'/>
         <page name='面向协议编程'/>
         <page name='响应式编程'/>
+        <page name='RAC(OC版本)'/>
         <page name='练习'/>
     </pages>
 </playground>
