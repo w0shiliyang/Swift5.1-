@@ -33,12 +33,12 @@
     
     // 过滤 YES才会发信号，no不发
     [[self.textfield.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
-        if (self.textfield.text.length > 6) {
-            self.textfield.text = [self.textfield.text substringToIndex:6];
+        if (value.length > 6) {
+            self.textfield.text = [value substringToIndex:6];
         }
-        return value.length < 6;
+        return value.length <= 6;
     }] subscribeNext:^(NSString * _Nullable x) {
-        NSLog(@"888:%@",x);
+        NSLog(@"x = %@",x);
     }];
     
 }

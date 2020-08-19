@@ -1,4 +1,4 @@
-import Foundation
+    import Foundation
 
 //:闭包表达式
 /// 在Swift中，可以通过func定义一个函数，也可以通过闭包表达式定义一个函数
@@ -149,7 +149,7 @@ getFirstPositive(-4) { 20 }
 func getFirstPositive(_ v1: Int, v2: @autoclosure () -> Int) -> Int? {
     return v1 > 0 ? v1 : v2()
 }
-getFirstPositive(-4) { 20 }
+getFirstPositive(-4, 20)
 
 /// @autoclosure 会自动将20 封装成闭包{ 20 }
 /// @autoclosure 只支持 （）-> T 格式的参数

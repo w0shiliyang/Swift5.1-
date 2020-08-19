@@ -93,7 +93,7 @@ for case nil in ages {
 } // 有nil值
 
 let points1 = [(1, 0), (2, 1), (3, 0)]
-for case let (x, 0) in points {
+for case let (x, 0) in points1 {
     print(x)
 } // 1 3
 //:  可选模式(Optional Pattern)

@@ -1,6 +1,6 @@
 import Foundation
-
 //: 泛型（Generics）
+
 /// 泛型可以将类型参数化，提高代码复用率，减少代码量
 func swapValues<T>(_ a: inout T, _ b: inout T) {
     (a, b) = (b, a)

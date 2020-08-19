@@ -11,19 +11,18 @@ import UIKit
 /// 操作系统:macOS\iOS\tvOS\watchOS\Linux\Android\Windows\FreeBSD #if os(macOS) || os(iOS)
 /// CPU架构:i386\x86_64\arm\arm64
 // #elseif arch(x86_64) || arch(arm64)
+
 /// swift版本
 // #elseif swift(<5) && swift(>=3)
 /// 模拟器
 // #elseif targetEnvironment(simulator) // 可以导入某模块
 // #elseif canImport(Foundation)
-// #else
-// #endif
 
 // #if DEBUG
 // #else
 // #endif
 
- //:打印
+//:打印
 //func log<T>(_ msg: T,
 //            file: NSString = #file,
 //            line: Int = #line,
@@ -34,7 +33,7 @@ import UIKit
 //    #endif
 //}
 
- //:系统版本检测
+//:系统版本检测
 // if #available(iOS 10, macOS 10.12, *) {
 // 对于iOS平台，只在iOS10及以上版本执行
 // 对于macOS平台，只在macOS 10.12及以上版本执行 // 最后的*表示在其他所有平台都执行
@@ -71,54 +70,77 @@ do {
 
 
 //:Swift调用OC – MJPerson.h
+//MARK: OC代码：
+//MJPerson.h
 //int sum(int a, int b);
 //@interface MJPerson : NSObject
-//@property (nonatomic, assign) NSInteger age; @property (nonatomic, copy) NSString *name;
-//- (instancetype)initWithAge:(NSInteger)age name:(NSString *)name; + (instancetype)personWithAge:(NSInteger)age name:(NSString *)name;
-//- (void)run; + (void)run;
-//- (void)eat:(NSString *)food other:(NSString *)other; + (void)eat:(NSString *)food other:(NSString *)other; @end
+//@property (nonatomic, assign) NSInteger age;
+//@property (nonatomic, copy) NSString *name;
+//- (instancetype)initWithAge:(NSInteger)age name:(NSString *)name;
+//+ (instancetype)personWithAge:(NSInteger)age name:(NSString *)name;
+//- (void)run;
+//+ (void)run;
+//- (void)eat:(NSString *)food other:(NSString *)other;
+//+ (void)eat:(NSString *)food other:(NSString *)other;
+//@end
 
-
- //:Swift调用OC – MJPerson.m
-//  @implementation MJPerson
+//MJPerson.m
+//@implementation MJPerson
 //- (instancetype)initWithAge:(NSInteger)age name:(NSString *)name {
-//if (self = [super init]) { self.age = age;
-//self.name = name; }
+//  if (self = [super init]) {
+//      self.age = age;
+//      self.name = name;
+//  }
 //    return self;
 //}
-//+ (instancetype)personWithAge:(NSInteger)age name:(NSString *)name { return [[self alloc] initWithAge:age name:name];
+//+ (instancetype)personWithAge:(NSInteger)age name:(NSString *)name {
+//  return [[self alloc] initWithAge:age name:name];
 //}
 //+ (void)run { NSLog(@"Person +run"); }
 //- (void)run { NSLog(@"%zd %@ -run", _age, _name); }
-//+ (void)eat:(NSString *)food other:(NSString *)other { NSLog(@"Person +eat %@ %@", food, other); }
-//- (void)eat:(NSString *)food other:(NSString *)other { NSLog(@"%zd %@ -eat %@ %@", _age, _name, food, other); } @end
+//+ (void)eat:(NSString *)food other:(NSString *)other {
+//      NSLog(@"Person +eat %@ %@", food, other);
+//  }
+//- (void)eat:(NSString *)food other:(NSString *)other {
+//    NSLog(@"%zd %@ -eat %@ %@", _age, _name, food, other);
+//    }
+//@end
 //int sum(int a, int b) { return a + b; }
 
 
- //:Swift调用OC – Swift代码
-//var p = MJPerson(age: 10, name: "Jack") p.age = 18
-//p.name = "Rose"
-//p.run() // 18 Rose -run
-//p.eat("Apple", other: "Water") // 18 Rose -eat Apple Water MJPerson.run() // Person +run
-//MJPerson.eat("Pizza", other: "Banana") // Person +eat Pizza Banana print(sum(10, 20)) // 30
-
- //:Swift调用OC – @_silgen_name
+//:Swift调用OC – Swift代码
+/*
+ var p = MJPerson(age: 10, name: "Jack")
+ p.age = 18
+ p.name = "Rose"
+ p.run()
+ // 18 Rose -run
+ p.eat("Apple", other: "Water")
+ // 18 Rose -eat Apple Water
+ MJPerson.run()
+ // Person +run
+ MJPerson.eat("Pizza", other: "Banana")
+ // Person +eat Pizza Banana
+ print(sum(10, 20))
+ // 30
+*/
+//:Swift调用OC – @_silgen_name
 //如果C语言暴露给Swift的函数名跟Swift中的其他函数名冲突了
 //可以在Swift中使用 @_silgen_name 修改C函数名
+
 //C语言
 //int sum(int a, int b) {
 //return a + b;
 //}
+
 // Swift
 //@_silgen_name("sum")
 //func swift_sum(_ v1: Int32, _ v2: Int32) -> Int32
 //print(swift_sum(10, 20)) // 30
 //print(sum(10, 20)) // 30
 
-
 //:OC调用Swift
 // Xcode已经默认生成一个用于OC调用Swift的头文件，文件名格式是: {targetName}-Swift.h
-
 //:OC调用Swift – Car.swift
 import Foundation
 @objcMembers class Car: NSObject {
@@ -141,6 +163,7 @@ extension Car {
 
 //:OC调用Swift – {targetName}-Swift.h
 //Xcode会根据Swift代码生成对应的OC声明，写入{targetName}-Swift.h 文件
+// MARK: OC代码：
 //@interface Car : NSObject
 //@property (nonatomic) double price;
 //@property (nonatomic, copy) NSString * _Nonnull band;
@@ -156,7 +179,8 @@ extension Car {
 //:OC调用Swift – OC代码
 //#import "项目名-Swift.h"
 //int sum(int a, int b) {
-//  Car *c = [[Car alloc] initWithPrice:10.5 band:@"BMW"]; c.band = @"Bently";
+//  Car *c = [[Car alloc] initWithPrice:10.5 band:@"BMW"];
+//  c.band = @"Bently";
 //  c.price = 108.5;
 //  [c run]; // 108.5 Bently run
 //  [c test]; // 108.5 Bently test [Car run]; // Car run
@@ -182,7 +206,8 @@ extension Car {
 //    static func run() { print("Car run") }
 //}
 
-//MJCar *c = [[MJCar alloc] initWithPrice:10.5 band:@"BMW"]; c.name = @"Bently";
+//MJCar *c = [[MJCar alloc] initWithPrice:10.5 band:@"BMW"];
+//c.name = @"Bently";
 //c.price = 108.5;
 //[c drive]; // 108.5 Bently run
 
@@ -531,62 +556,62 @@ let img3 = R1.image.logo
 let font3 = R1.font.arial(14)
 
 //: 多线程开发 – 异步
-do {
-//    public typealias Task = () -> Void
-//    private static func _async(_ task: @escaping Task,
-//                       _ mainTask: Task? = nil) {
-//
-//        let item = DispatchWorkItem(block: task)
-//        DispatchQueue.global().async(execute: item)
-//        if let main = mainTask {
-//            item.notify(queue: DispatchQueue.main, execute: main)
-//        }
-//
-//    }
-//
-//    public static func async(_ task: @escaping Task) {
-//        _async(task)
-//    }
-//
-//    public static func async(_ task: @escaping Task, _ mainTask: @escaping Task) {
-//        _async(task, mainTask)
-//    }
+
+public typealias Task = () -> Void
+private func _async(_ task: @escaping Task,
+                   _ mainTask: Task? = nil) {
+
+    let item = DispatchWorkItem(block: task)
+    DispatchQueue.global().async(execute: item)
+    if let main = mainTask {
+        item.notify(queue: DispatchQueue.main, execute: main)
+    }
+
 }
+
+public func async(_ task: @escaping Task) {
+    _async(task)
+}
+
+public func async(_ task: @escaping Task, _ mainTask: @escaping Task) {
+    _async(task, mainTask)
+}
+
         
 //: 多线程开发 – 延迟
-//@discardableResult
-//public static func delay(_ seconds: Double,
-//                         _ block: @escaping Task) -> DispatchWorkItem {
-//    let item = DispatchWorkItem(block: block)
-//    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
-//    return item
-//}
+@discardableResult
+public func delay(_ seconds: Double,
+                         _ block: @escaping Task) -> DispatchWorkItem {
+    let item = DispatchWorkItem(block: block)
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
+    return item
+}
 
 
 //: 多线程开发 – 异步延迟
-//@discardableResult
-//public static func asyncDelay(_ seconds: Double,
-//                              _ task: @escaping Task) -> DispatchWorkItem {
-//    return _asyncDelay(seconds, task)
-//}
-//
-//@discardableResult
-//public static func asyncDelay(_ seconds: Double,
-//                              _ task: @escaping Task,
-//                              _ mainTask: @escaping Task) -> DispatchWorkItem {
-//    return _asyncDelay(seconds, task, mainTask)
-//}
-//
-//private static func _asyncDelay(_ seconds: Double,
-//                                _ task: @escaping Task,
-//                                _ mainTask: Task? = nil) -> DispatchWorkItem {
-//    let item = DispatchWorkItem(block: task)
-//    DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
-//    if let main = mainTask {
-//        item.notify(queue: DispatchQueue.main, execute: main)
-//    }
-//    return item
-//}
+@discardableResult
+public func asyncDelay(_ seconds: Double,
+                              _ task: @escaping Task) -> DispatchWorkItem {
+    return _asyncDelay(seconds, task)
+}
+
+@discardableResult
+public func asyncDelay(_ seconds: Double,
+                              _ task: @escaping Task,
+                              _ mainTask: @escaping Task) -> DispatchWorkItem {
+    return _asyncDelay(seconds, task, mainTask)
+}
+
+private func _asyncDelay(_ seconds: Double,
+                                _ task: @escaping Task,
+                                _ mainTask: Task? = nil) -> DispatchWorkItem {
+    let item = DispatchWorkItem(block: task)
+    DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + seconds, execute: item)
+    if let main = mainTask {
+        item.notify(queue: DispatchQueue.main, execute: main)
+    }
+    return item
+}
 
 //: 多线程开发 – once
 //dispatch_once在Swift中已被废弃，取而代之 p可以用类型属性或者全局变量\常量
@@ -621,21 +646,21 @@ class Cache {
 
 // Foundation
 
-//private static var lock = NSLock()
-//private static var data = [String: Any]()
-//static func set(_ key: String, _ value: Any) {
-//    lock.lock()
-//    defer {
-//        lock.unlock()
-//    }
-//    data[key] = value
-//}
-//
-//private static var lock1 = NSRecursiveLock()
-//static func set1(_ key: String, _ value: Any) {
-//    lock1.lock()
-//    defer {
-//        lock1.unlock()
-//    }
-//    data[key] = value
-//}
+private var lock = NSLock()
+private var data = [String: Any]()
+func set(_ key: String, _ value: Any) {
+    lock.lock()
+    defer {
+        lock.unlock()
+    }
+    data[key] = value
+}
+
+private var lock1 = NSRecursiveLock()
+func set1(_ key: String, _ value: Any) {
+    lock1.lock()
+    defer {
+        lock1.unlock()
+    }
+    data[key] = value
+}

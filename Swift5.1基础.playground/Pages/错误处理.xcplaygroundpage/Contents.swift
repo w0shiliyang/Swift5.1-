@@ -110,8 +110,8 @@ do {
 } catch { b = nil }
 //: rethrows
 /// rethrows表明：函数本身不会抛出错误，但调用闭包参数抛出错误，那么它会将错误上抛
-func exec(_ func:(Int, Int) throws -> Int, _ num1: Int, _ num2: Int) rethrows {
-//    print(try divide(num1, num2))
+func exec(_ func1:(Int, Int) throws -> Int, _ num1: Int, _ num2: Int) rethrows {
+//    print(try func1(num1, num2))
 }
 // Fatal error: Error raised at top level
 try exec(divide, 20, 0)

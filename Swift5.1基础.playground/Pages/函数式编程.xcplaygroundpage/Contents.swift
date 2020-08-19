@@ -65,7 +65,16 @@ do {
     print("mapped", result[1])
     print("mapped", result[2])
     print("end----")
-    //begin----- mapping 1 mapped 2 mapping 2 mapped 4 mapping 3 mapped 6 end----
+    /*
+     begin-----
+     mapping 1
+     mapped 2
+     mapping 2
+     mapped 4
+     mapping 3
+     mapped 6
+     end----
+     */
 }
 //:Optional的map和flatMap
 do {
@@ -75,7 +84,7 @@ do {
     print(num2 as Any)
     
     let num3: Int? = nil
-    let num4 = num3.map { $0 * 2 }
+    let num4 = num3.flatMap { $0 * 2 }
     // nil
     print(num4 as Any)
 }
@@ -123,7 +132,6 @@ do {
     print(num3 as Any)
 }
 
-//:Optional的map和flatMap
 do {
     struct Person {
         var name: String
@@ -167,7 +175,8 @@ do {
     print(p2 as Any)
 }
 //:函数式编程(Funtional Programming)
-//函数式编程(Funtional Programming，简称FP)是一种编程范式，也就是如何编写程序的方法论 p 主要思想:把计算过程尽量分解成一系列可复用函数的调用
+//函数式编程(Funtional Programming，简称FP)是一种编程范式，也就是如何编写程序的方法论
+//主要思想:把计算过程尽量分解成一系列可复用函数的调用
 //主要特征:函数是“第一等公民”
 //函数与其他数据类型一样的地位，可以赋值给其他变量，也可以作为函数参数、函数返回值
 //函数式编程最早出现在LISP语言，绝大部分的现代编程语言也对函数式编程做了不同程度的支持，比如 p Haskell、JavaScript、Python、Swift、Kotlin、Scala等

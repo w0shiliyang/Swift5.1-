@@ -119,7 +119,7 @@ var num123 = Int("123")
 /// 可以用一个非可失败初始化器重写一个可失败初始化器，但反过来是不行的
 //: 反初始化器（deinit）
 /// deinit叫做反初始化器，类似于C++的析构函数、OC中的dealloc方法
-/// 当类的实例对象呗释放时，就会调用实例对象的deinit方法
+/// 当类的实例对象被3释放时，就会调用实例对象的deinit方法
 class TestPerson {
     deinit {
         print("TestPerson对象销毁了")
