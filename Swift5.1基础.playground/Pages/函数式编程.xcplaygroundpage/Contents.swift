@@ -187,7 +187,7 @@ do {
 //:FP实践 – 传统写法
 // 假设要实现以下功能:[(num + 3) * 5 - 1] % 10 / 2
 do {
-    var num = 1
+    let num = 1
     func add(_ v1: Int, _ v2: Int) -> Int {
         v1 + v2
     }
@@ -213,7 +213,7 @@ func >>><A, B, C>(_ f1: @escaping (A) -> B,_ f2: @escaping (B) -> C) -> (A) -> C
 
 // FP实践 – 函数式写法
 do {
-    var num = 1
+    let num = 1
     func add(_ v: Int) -> (Int) -> Int {
         { $0 + v }
     }
@@ -253,50 +253,48 @@ do {
     ///Array、Optional的map方法接收的参数就是一个柯里化函数
 }
 
-do {
-    func add1(_ v1: Int, _ v2: Int) -> Int { v1 + v2 }
-    func add2(_ v1: Int, _ v2: Int, _ v3: Int) -> Int { v1 + v2 + v3 }
-    func currying<A, B, C>(_ fn: @escaping (A, B) -> C) -> (B) -> (A) -> C {
-        { b in { a in fn(a, b) } }
-    }
-    func currying1<A, B, C, D>(_ fn: @escaping (A, B, C) -> D) -> (C) -> (B) -> (A) -> D {
-        {   c in
-            {   b in
-                { a in
-                    fn(a, b, c)
-                }
+func add3(_ v1: Int, _ v2: Int) -> Int { v1 + v2 }
+func add4(_ v1: Int, _ v2: Int, _ v3: Int) -> Int { v1 + v2 + v3 }
+func currying<A, B, C>(_ fn: @escaping (A, B) -> C) -> (B) -> (A) -> C {
+    { b in { a in fn(a, b) } }
+}
+func currying1<A, B, C, D>(_ fn: @escaping (A, B, C) -> D) -> (C) -> (B) -> (A) -> D {
+    {   c in
+        {   b in
+            { a in
+                fn(a, b, c)
             }
         }
     }
-    let curriedAdd1 = currying(add1)
-    print(curriedAdd1(10)(20))
-    let curriedAdd2 = currying1(add2)
-    print(curriedAdd2(10)(20)(30))
 }
+let curriedAdd1 = currying(add3)
+print(curriedAdd1(10)(20))
+let curriedAdd2 = currying1(add4)
+print(curriedAdd2(10)(20)(30))
+
 
 prefix func ~<A, B, C>(_ fn: @escaping (A, B) -> C) -> (B) -> (A) -> C {
     { b in { a in fn(a, b) } }
 }
 
-do {
-    func add(_ v1: Int, _ v2: Int) -> Int {
-        v1 + v2
-    }
 
-    func sub(_ v1: Int, _ v2: Int) -> Int {
-        v1 - v2
-    }
-    func multiple(_ v1: Int, _ v2: Int) -> Int {
-        v1 * v2
-    }
-    func divide(_ v1: Int, _ v2: Int) -> Int {
-        v1 / v2
-    }
-    func mod(_ v1: Int, _ v2: Int) -> Int {
-        v1 % v2
-    }
-    
-    let num = 1
-    let fn = (~add)(3) >>> (~multiple)(5) >>> (~sub)(1) >>> (~mod)(10) >>> (~divide)(2)
-    fn(num)
+func add0(_ v1: Int, _ v2: Int) -> Int {
+    v1 + v2
 }
+func sub0(_ v1: Int, _ v2: Int) -> Int {
+    v1 - v2
+}
+func multiple0(_ v1: Int, _ v2: Int) -> Int {
+    v1 * v2
+}
+func divide0(_ v1: Int, _ v2: Int) -> Int {
+    v1 / v2
+}
+func mod0(_ v1: Int, _ v2: Int) -> Int {
+    v1 % v2
+}
+
+let num = 1
+let fn0 = (~add0)(3) >>> (~multiple0)(5) >>> (~sub0)(1) >>> (~mod0)(10) >>> (~divide0)(2)
+fn0(num)
+
