@@ -234,7 +234,8 @@ do {
 }
 //:高阶函数(Higher-Order Function)
 //高阶函数是至少满足下列一个条件的函数:
-//接受一个或多个函数作为输入(map、filter、reduce等) p 返回一个函数
+//接受一个或多个函数作为输入(map、filter、reduce等)
+//返回一个函数
 //FP中到处都是高阶函数
 do {
     func add(_ v: Int) -> (Int) -> Int { { $0 + v } }
