@@ -1,7 +1,7 @@
 import Foundation
 
 //:响应式编程
-//响应式编程(Reactive Programming，简称RP)
+//响应式编程(Reactive Programming，简称RP).
 //也是一种编程范式，于1997年提出，可以简化异步编程，提供更优雅的数据绑定
 //一般与函数式融合在一起，所以也会叫做:函数响应式编程(Functional Reactive Programming，简称FRP)
 
