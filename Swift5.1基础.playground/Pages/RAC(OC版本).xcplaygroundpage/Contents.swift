@@ -1,6 +1,6 @@
 /*
  
-/// 两个信号合并， .12
+/// 两个信号合并， .121
 - (void)twoSignalCombine {
     RACSignal *signalA = self.textfield.rac_textSignal;
     RACSignal *signalB = [self.btn rac_signalForControlEvents:UIControlEventTouchUpInside];
